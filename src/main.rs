@@ -1,7 +1,7 @@
 pub mod handlers;
 
 use axum::{
-    routing::{delete, get, post},
+    routing::{delete, get, post, put},
     Router,
 };
 use handlers::routes;
@@ -12,8 +12,8 @@ async fn main() {
     let app = Router::new()
         .route("/", get(home))
         .route("/create", post(routes::create))
-        .route("/read", delete(routes::read))
-        .route("/update", delete(routes::update))
+        .route("/read", get(routes::read))
+        .route("/update", put(routes::update))
         .route("/delete", delete(routes::delete));
 
     // run it
