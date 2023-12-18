@@ -1,4 +1,5 @@
-pub mod handlers;
+mod handlers;
+mod models;
 
 use axum::{
     routing::{delete, get, post, put},
