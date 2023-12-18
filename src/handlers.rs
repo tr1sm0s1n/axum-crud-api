@@ -1,6 +1,11 @@
 pub mod routes {
-    pub async fn create() -> &'static str {
-        "Created a user"
+    use axum::{http::StatusCode, response::IntoResponse, Json};
+
+    use crate::models::Certificate;
+
+    pub async fn create(Json(input): Json<Certificate>) -> impl IntoResponse {
+        println!("{:?}", input);
+        (StatusCode::CREATED, Json(input))
     }
 
     pub async fn read() -> &'static str {
