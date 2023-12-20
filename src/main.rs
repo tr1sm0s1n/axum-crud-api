@@ -1,5 +1,6 @@
 mod handlers;
 mod models;
+mod types;
 
 use axum::{
     routing::{delete, get, post, put},
@@ -9,13 +10,13 @@ use handlers::routes;
 
 #[tokio::main]
 async fn main() {
+    // initializing storage
+    let db = types::Db::default();
+
     // build our application with multiple routes
     let app = Router::new()
         .route("/", get(home))
-        .route("/create", post(routes::create))
-        .route("/read", get(routes::read))
-        .route("/update", put(routes::update))
-        .route("/delete", delete(routes::delete));
+        .with_state(db);
 
     // run it
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
