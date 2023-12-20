@@ -16,6 +16,11 @@ async fn main() {
     // build our application with multiple routes
     let app = Router::new()
         .route("/", get(home))
+        .route("/create", post(routes::create_one))
+        .route("/read", get(routes::read_all))
+        .route("/read/:id", get(routes::read_one))
+        .route("/update/:id", put(routes::update_one))
+        .route("/delete/:id", delete(routes::delete_one))
         .with_state(db);
 
     // run it
