@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct Certificate {
-    id: u32,
+    pub id: u32,
     name: String,
     course: String,
     status: bool,
