@@ -12,20 +12,20 @@ pub mod routes {
         State(db): State<Db>,
         Json(input): Json<Certificate>,
     ) -> impl IntoResponse {
-        println!("{:#?}", input);
+        // println!("{:#?}", input);
         db.write().unwrap().insert(input.id, input.clone());
         (StatusCode::CREATED, Json(input))
     }
 
     pub async fn read_all(State(db): State<Db>) -> impl IntoResponse {
         let certificates = db.read().unwrap();
-        println!("{:#?}", certificates);
+        // println!("{:#?}", certificates);
         (StatusCode::OK, Json(certificates.clone()))
     }
 
     pub async fn read_one(Path(id): Path<u32>, State(db): State<Db>) -> impl IntoResponse {
         let certificate = db.read().unwrap().get(&id).cloned();
-        println!("{:#?}", certificate);
+        // println!("{:#?}", certificate);
         if certificate.is_none() {
             return (StatusCode::NOT_FOUND, Json(certificate));
         }
@@ -37,19 +37,19 @@ pub mod routes {
         State(db): State<Db>,
         Json(input): Json<Certificate>,
     ) -> impl IntoResponse {
-        println!("{}", "update");
+        // println!("{}", "update");
         let certificate = db.read().unwrap().get(&id).cloned();
         if certificate.is_none() {
             return (StatusCode::NOT_FOUND, Json(certificate));
         }
-        println!("{:#?}", input);
+        // println!("{:#?}", input);
         db.write().unwrap().insert(id, input.clone());
         (StatusCode::OK, Json(Some(input)))
     }
 
     pub async fn delete_one(Path(id): Path<u32>, State(db): State<Db>) -> impl IntoResponse {
         let certificate = db.write().unwrap().remove(&id);
-        println!("{:#?}", certificate);
+        // println!("{:#?}", certificate);
         if certificate.is_some() {
             (StatusCode::OK, Json(certificate))
         } else {
