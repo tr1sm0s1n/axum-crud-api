@@ -15,5 +15,6 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 [dev-dependencies]
 http-body-util = "0.1.0"
+mime = "0.3"
 serde_json = "1.0"
 tower = { version = "0.4", features = ["util"] }
