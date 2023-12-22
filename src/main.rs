@@ -50,3 +50,6 @@ fn app() -> Router {
 async fn home() -> &'static str {
     "Hello, World!"
 }
+
+#[cfg(test)]
+mod tests;
