@@ -5,6 +5,11 @@ CMD ?= cargo
 install:
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+.PHONY: test
+# Test the application.
+test:
+	$(CMD) test
+
 .PHONY: run
 # Run the application.
 run:
