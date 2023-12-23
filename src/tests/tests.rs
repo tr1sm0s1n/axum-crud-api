@@ -10,7 +10,7 @@ use tower::ServiceExt; // for `call`, `oneshot`, and `ready`
 use crate::app;
 
 #[tokio::test]
-async fn home_router() {
+async fn home() {
     let app = app();
 
     let response = app
@@ -25,7 +25,26 @@ async fn home_router() {
 }
 
 #[tokio::test]
-async fn create_router() {
+async fn not_found() {
+    let app = app();
+
+    let response = app
+        .oneshot(
+            Request::builder()
+                .uri("/login")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::NOT_FOUND);
+    let body = response.into_body().collect().await.unwrap().to_bytes();
+    assert!(body.is_empty());
+}
+
+#[tokio::test]
+async fn create_one() {
     let app = app();
 
     let response = app
@@ -48,4 +67,16 @@ async fn create_router() {
         body,
         json!({ "id": 56, "name": "Eirene", "course": "MBCC", "status": true, "date": "21-12-2022" })
     );
+}
+
+#[tokio::test]
+async fn read_all() {
+    let app = app();
+
+    let response = app
+        .oneshot(Request::builder().uri("/read").body(Body::empty()).unwrap())
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::OK);
 }
