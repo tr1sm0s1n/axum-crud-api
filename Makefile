@@ -26,7 +26,7 @@ help:
 	@echo ' make [target]'
 	@echo ''
 	@echo 'Targets:'
-	@awk '/^[a-zA-Z\-\_0-9]+:/ { \
+	@awk '/^[a-zA-Z\-\0-9]+:/ { \
 	helpMessage = match(lastLine, /^# (.*)/); \
 		if (helpMessage) { \
 			helpCommand = substr($$1, 0, index($$1, ":")-1); \
@@ -35,5 +35,6 @@ help:
 		} \
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
+	@echo ''
 
 .DEFAULT_GOAL := help
