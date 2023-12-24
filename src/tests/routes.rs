@@ -157,3 +157,41 @@ async fn update_one() {
     );
 }
 
+#[tokio::test]
+async fn delete_one() {
+    let mut app = app().into_service();
+
+    let request = Request::builder()
+    .method(http::Method::POST)
+    .uri("/create")
+    .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
+    .body(Body::from(serde_json::to_vec(
+        &json!({ "id": 60, "name": "Demon", "course": "MBCC", "status": false, "date": null })).unwrap())).unwrap();
+    let response = ServiceExt::<Request<Body>>::ready(&mut app)
+        .await
+        .unwrap()
+        .call(request)
+        .await
+        .unwrap();
+    assert_eq!(response.status(), StatusCode::CREATED);
+
+    let request = Request::builder()
+        .method(http::Method::DELETE)
+        .uri("/delete/60")
+        .body(Body::empty())
+        .unwrap();
+    let response = ServiceExt::<Request<Body>>::ready(&mut app)
+        .await
+        .unwrap()
+        .call(request)
+        .await
+        .unwrap();
+    assert_eq!(response.status(), StatusCode::OK);
+
+    let body = response.into_body().collect().await.unwrap().to_bytes();
+    let body: Value = serde_json::from_slice(&body).unwrap();
+    assert_eq!(
+        body,
+        json!({"id": 60, "name": "Demon", "course": "MBCC", "status": false, "date": null})
+    );
+}
