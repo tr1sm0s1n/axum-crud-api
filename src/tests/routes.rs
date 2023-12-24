@@ -117,3 +117,43 @@ async fn read_one() {
     );
 }
 
+#[tokio::test]
+async fn update_one() {
+    let mut app = app().into_service();
+
+    let request = Request::builder()
+    .method(http::Method::POST)
+    .uri("/create")
+    .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
+    .body(Body::from(serde_json::to_vec(
+        &json!({ "id": 48, "name": "Shalom", "course": "MBCC", "status": true, "date": "17-07-2020" })).unwrap())).unwrap();
+    let response = ServiceExt::<Request<Body>>::ready(&mut app)
+        .await
+        .unwrap()
+        .call(request)
+        .await
+        .unwrap();
+    assert_eq!(response.status(), StatusCode::CREATED);
+
+    let request = Request::builder()
+    .method(http::Method::PUT)
+    .uri("/update/48")
+    .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
+    .body(Body::from(serde_json::to_vec(
+        &json!({ "id": 48, "name": "Rahu", "course": "MBCC", "status": true, "date": "07-08-2020" })).unwrap())).unwrap();
+    let response = ServiceExt::<Request<Body>>::ready(&mut app)
+        .await
+        .unwrap()
+        .call(request)
+        .await
+        .unwrap();
+    assert_eq!(response.status(), StatusCode::OK);
+
+    let body = response.into_body().collect().await.unwrap().to_bytes();
+    let body: Value = serde_json::from_slice(&body).unwrap();
+    assert_eq!(
+        body,
+        json!({ "id": 48, "name": "Rahu", "course": "MBCC", "status": true, "date": "07-08-2020" })
+    );
+}
+
