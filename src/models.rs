@@ -6,5 +6,5 @@ pub struct Certificate {
     name: String,
     course: String,
     status: bool,
-    date: String,
+    date: Option<String>,
 }

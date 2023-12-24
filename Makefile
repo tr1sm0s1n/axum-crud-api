@@ -5,6 +5,11 @@ CMD ?= cargo
 install:
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+.PHONY: test
+# Test the application.
+test:
+	$(CMD) test
+
 .PHONY: run
 # Run the application.
 run:
@@ -21,7 +26,7 @@ help:
 	@echo ' make [target]'
 	@echo ''
 	@echo 'Targets:'
-	@awk '/^[a-zA-Z\-\_0-9]+:/ { \
+	@awk '/^[a-zA-Z\-\0-9]+:/ { \
 	helpMessage = match(lastLine, /^# (.*)/); \
 		if (helpMessage) { \
 			helpCommand = substr($$1, 0, index($$1, ":")-1); \
@@ -30,5 +35,6 @@ help:
 		} \
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
+	@echo ''
 
 .DEFAULT_GOAL := help
