@@ -1,4 +1,4 @@
-# Test-Axum-API
+# Axum-CRUD-API
 
 Simple API in Rust using Axum.
 

@@ -1,5 +1,5 @@
 [package]
-name = "test-axum-api"
+name = "axum-crud-api"
 version = "0.1.0"
 edition = "2021"
 

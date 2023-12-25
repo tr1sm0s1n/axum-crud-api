@@ -1,7 +1,7 @@
 openapi: "3.0.2"
 
 info:
-  title: Test-Axum-API
+  title: Axum-CRUD-API
   version: 0.1.0
   description: "Simple API in Rust using Axum."
 
