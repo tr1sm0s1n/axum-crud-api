@@ -40,9 +40,9 @@ fn app() -> Router {
         .route("/", get(home))
         .route("/create", post(routes::create_one))
         .route("/read", get(routes::read_all))
-        .route("/read/:id", get(routes::read_one))
-        .route("/update/:id", put(routes::update_one))
-        .route("/delete/:id", delete(routes::delete_one))
+        .route("/read/{id}", get(routes::read_one))
+        .route("/update/{id}", put(routes::update_one))
+        .route("/delete/{id}", delete(routes::delete_one))
         .layer(TraceLayer::new_for_http())
         .with_state(db)
 }
