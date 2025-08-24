@@ -1,9 +1,9 @@
-openapi: "3.0.2"
+openapi: '3.0.2'
 
 info:
   title: Axum-CRUD-API
   version: 0.1.0
-  description: "Simple API in Rust using Axum."
+  description: 'Simple API in Rust using Axum.'
 
 servers:
   - url: http://127.0.0.1:3000
@@ -18,17 +18,17 @@ paths:
       tags:
         - create
       responses:
-        "201":
+        '201':
           description: Returns the new certificate.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/certificate"
+                $ref: '#/components/schemas/certificate'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/certificate"
+              $ref: '#/components/schemas/certificate'
         description: Certificate details
 
   /read:
@@ -39,14 +39,14 @@ paths:
       tags:
         - read
       responses:
-        "200":
+        '200':
           description: Returns all the certificates.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/certificate"
+                  $ref: '#/components/schemas/certificate'
 
   /read/{id}:
     get:
@@ -56,12 +56,12 @@ paths:
       tags:
         - read
       responses:
-        "200":
+        '200':
           description: Returns one certificate.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/certificate"
+                $ref: '#/components/schemas/certificate'
       parameters:
         - name: id
           description: certificate id
@@ -78,12 +78,12 @@ paths:
       tags:
         - update
       responses:
-        "200":
+        '200':
           description: Returns the updated certificate.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/certificate"
+                $ref: '#/components/schemas/certificate'
       parameters:
         - name: id
           description: Certificate id
@@ -95,7 +95,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/certificate"
+              $ref: '#/components/schemas/certificate'
         description: Certificate details
 
   /delete/{id}:
@@ -106,12 +106,12 @@ paths:
       tags:
         - delete
       responses:
-        "200":
+        '200':
           description: Returns the deleted certificate.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/certificate"
+                $ref: '#/components/schemas/certificate'
       parameters:
         - name: id
           description: Certificate id
@@ -133,10 +133,10 @@ components:
       properties:
         id:
           type: integer
-          example: 72
+          example: 5
         name:
           type: string
-          example: Langley
+          example: Augustus
         course:
           type: string
           example: MBCC
@@ -146,4 +146,4 @@ components:
         date:
           type: string
           format: date
-          example: "21-12-2022"
+          example: '14-07-2025'

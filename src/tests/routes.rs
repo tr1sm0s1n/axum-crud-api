@@ -53,7 +53,7 @@ async fn create_one() {
                 .uri("/create")
                 .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
                 .body(Body::from(serde_json::to_vec(
-                    &json!({ "id": 56, "name": "Eirene", "course": "MBCC", "status": true, "date": "21-12-2022" })).unwrap()))
+                    &json!({ "id": 21, "name": "Shin", "course": "MBCC", "status": true, "date": "15-11-2024" })).unwrap()))
                 .unwrap(),
         )
         .await
@@ -64,7 +64,7 @@ async fn create_one() {
     let body: Value = serde_json::from_slice(&body).unwrap();
     assert_eq!(
         body,
-        json!({ "id": 56, "name": "Eirene", "course": "MBCC", "status": true, "date": "21-12-2022" })
+        json!({ "id": 21, "name": "Shin", "course": "MBCC", "status": true, "date": "15-11-2024" })
     );
 }
 
@@ -88,7 +88,7 @@ async fn read_one() {
     .uri("/create")
     .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
     .body(Body::from(serde_json::to_vec(
-        &json!({ "id": 36, "name": "Raven", "course": "MBCC", "status": true, "date": "24-12-2023" })).unwrap())).unwrap();
+        &json!({ "id": 310, "name": "Cassian", "course": "MBCC", "status": true, "date": "19-11-2024" })).unwrap())).unwrap();
     let response = ServiceExt::<Request<Body>>::ready(&mut app)
         .await
         .unwrap()
@@ -98,7 +98,7 @@ async fn read_one() {
     assert_eq!(response.status(), StatusCode::CREATED);
 
     let request = Request::builder()
-        .uri("/read/36")
+        .uri("/read/310")
         .body(Body::empty())
         .unwrap();
     let response = ServiceExt::<Request<Body>>::ready(&mut app)
@@ -113,7 +113,7 @@ async fn read_one() {
     let body: Value = serde_json::from_slice(&body).unwrap();
     assert_eq!(
         body,
-        json!({ "id": 36, "name": "Raven", "course": "MBCC", "status": true, "date": "24-12-2023" })
+        json!({ "id": 310, "name": "Cassian", "course": "MBCC", "status": true, "date": "19-11-2024" })
     );
 }
 
@@ -126,7 +126,7 @@ async fn update_one() {
     .uri("/create")
     .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
     .body(Body::from(serde_json::to_vec(
-        &json!({ "id": 48, "name": "Shalom", "course": "MBCC", "status": true, "date": "17-07-2020" })).unwrap())).unwrap();
+        &json!({ "id": 98, "name": "Hella", "course": "MBCC", "status": false, "date": "02-12-2024" })).unwrap())).unwrap();
     let response = ServiceExt::<Request<Body>>::ready(&mut app)
         .await
         .unwrap()
@@ -137,10 +137,10 @@ async fn update_one() {
 
     let request = Request::builder()
     .method(http::Method::PUT)
-    .uri("/update/48")
+    .uri("/update/98")
     .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
     .body(Body::from(serde_json::to_vec(
-        &json!({ "id": 48, "name": "Rahu", "course": "MBCC", "status": true, "date": "07-08-2020" })).unwrap())).unwrap();
+        &json!({ "id": 98, "name": "Necresta Hella", "course": "MBCC", "status": true, "date": "02-12-2024" })).unwrap())).unwrap();
     let response = ServiceExt::<Request<Body>>::ready(&mut app)
         .await
         .unwrap()
@@ -153,7 +153,7 @@ async fn update_one() {
     let body: Value = serde_json::from_slice(&body).unwrap();
     assert_eq!(
         body,
-        json!({ "id": 48, "name": "Rahu", "course": "MBCC", "status": true, "date": "07-08-2020" })
+        json!({ "id": 98, "name": "Necresta Hella", "course": "MBCC", "status": true, "date": "02-12-2024" })
     );
 }
 
@@ -166,7 +166,7 @@ async fn delete_one() {
     .uri("/create")
     .header(http::header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
     .body(Body::from(serde_json::to_vec(
-        &json!({ "id": 60, "name": "Demon", "course": "MBCC", "status": false, "date": null })).unwrap())).unwrap();
+        &json!({ "id": 627, "name": "Siglinde", "course": "MBCC", "status": false, "date": null })).unwrap())).unwrap();
     let response = ServiceExt::<Request<Body>>::ready(&mut app)
         .await
         .unwrap()
@@ -177,7 +177,7 @@ async fn delete_one() {
 
     let request = Request::builder()
         .method(http::Method::DELETE)
-        .uri("/delete/60")
+        .uri("/delete/627")
         .body(Body::empty())
         .unwrap();
     let response = ServiceExt::<Request<Body>>::ready(&mut app)
@@ -192,6 +192,6 @@ async fn delete_one() {
     let body: Value = serde_json::from_slice(&body).unwrap();
     assert_eq!(
         body,
-        json!({"id": 60, "name": "Demon", "course": "MBCC", "status": false, "date": null})
+        json!({"id": 627, "name": "Siglinde", "course": "MBCC", "status": false, "date": null})
     );
 }
