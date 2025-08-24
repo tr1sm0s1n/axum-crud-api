@@ -3,22 +3,22 @@ CMD ?= cargo
 .PHONY: install
 # Install Rust using rustup.
 install:
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	@curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 .PHONY: test
 # Test the application.
 test:
-	$(CMD) test
+	@$(CMD) test
 
 .PHONY: run
 # Run the application.
 run:
-	$(CMD) run
+	@$(CMD) run
 
 .PHONY: fmt
 # Format the Rust files.
 fmt:
-	$(CMD) fmt
+	@$(CMD) fmt
 
 help:
 	@echo ''
